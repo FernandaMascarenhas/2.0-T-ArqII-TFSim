@@ -69,6 +69,7 @@ void branch_predictorMN::mn_update_state(bool taken, bool hit)
     }
 
     history_table.at(history_global) = stateMN;
+    //histoty_table[history_global] = stateMN
 
     int aux = history_global << 1;
 

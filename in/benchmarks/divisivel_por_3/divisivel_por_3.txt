@@ -1,0 +1,47 @@
+// Divisão de um número por três
+
+// Registradores:
+// R1: número a ser verificado
+// R2: contador
+
+// Inicializar o número a ser verificado
+DADDI R1, R0, 34 
+
+// Inicializar o contador
+DADD R2, R0, R0
+
+// Loop principal
+loop:
+    // Verificar se o número é igual a zero (divisão concluída)
+    DADDI R3, R1, 0
+    BEQ R3, R0, fim
+    
+    // Verificar se o número é positivo
+    DSUBI R3, R0, 1
+    BGTZ R1, divisivel_por_tres
+    
+    // Verificar se o número é negativo
+    DSUBI R3, R0, -1
+    BLTZ R1, divisivel_por_tres_negativo
+    
+    // Incrementar o contador (para cada iteração)
+    DADDI R2, R2, 1
+    
+    // Subtrair 3 do número
+    DSUBI R1, R1, 3
+    J loop
+
+// O número é divisível por três (positivo)
+divisivel_por_tres:
+    LD R1, resultado_positivo
+    J fim
+
+// O número é divisível por três (negativo)
+divisivel_por_tres_negativo:
+    LD R1, resultado_negativo
+    J fim
+
+// Fim do programa
+fim:
+
+
