@@ -1,6 +1,7 @@
 #include "general.hpp"
 #include "interfaces.hpp"
 #include "branch_predictor.hpp"
+#include "branch_predictorMN.hpp"
 #include "bpb.hpp"
 #include <nana/gui/widgets/listbox.hpp>
 #include<vector>
@@ -39,6 +40,7 @@ public:
 
     bool rob_is_empty();
     branch_predictor get_preditor();
+    branch_predictorMN get_preditorMN();
     bpb get_bpb();
     int get_mem_count();
 
@@ -79,6 +81,7 @@ private:
     // 1-> 1 preditor; 2-> bpb
     int flag_mode;
     branch_predictor preditor;
+    branch_predictorMN predictorMN;
     bpb branch_prediction_buffer;
     map<string,unsigned int> branch_instr;
     nana::listbox &gui_table;
