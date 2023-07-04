@@ -1,0 +1,16 @@
+//main:
+DSUBI R1, R0, 34        // R1 = -34
+
+BLTZ R1, 4            // if (R1 <= 0) goto eh_negativo
+
+J 5                // goto end
+
+//eh_positivo:
+DADDI R4, R0, 96         // R4 = 96
+DADDI R6, R0, 44         // R6 = 44
+J 4
+
+//eh_negativo:
+DADDI R2, R0, 5         // R2 = 5
+BGEZ R2, eh_positivo            // if (R2 >= 0) goto eh_positivo
+J 1                     // goto end

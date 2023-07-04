@@ -1,47 +1,74 @@
-// Divisão de um número por três
+//  main:
+    // Inicializa R1 com 34
+LD R1, 0(R0)
+DADDI R1, R0, 34
 
-// Registradores:
-// R1: número a ser verificado
-// R2: contador
+    // Verifica se R1 é igual a zero
+BEQ R1, R0, is_zero
+    // Verifica se R1 é negativo
+BGEZ R1, eh_negativo
+    // Verifica se R1 é positivo
+BLTZ R1, eh_positivo
 
-// Inicializar o número a ser verificado
-DADDI R1, R0, 34 
+    // Ponto de retorno (caso algo inesperado aconteça)
+J 20
 
-// Inicializar o contador
-DADD R2, R0, R0
+ // is_zero:
+    // Caso R1 seja igual a zero, atribui 1 a R1
+DADDI R1, R0, 1
+J 18
 
-// Loop principal
-loop:
-    // Verificar se o número é igual a zero (divisão concluída)
-    DADDI R3, R1, 0
-    BEQ R3, R0, fim
-    
-    // Verificar se o número é positivo
-    DSUBI R3, R0, 1
-    BGTZ R1, divisivel_por_tres
-    
-    // Verificar se o número é negativo
-    DSUBI R3, R0, -1
-    BLTZ R1, divisivel_por_tres_negativo
-    
-    // Incrementar o contador (para cada iteração)
-    DADDI R2, R2, 1
-    
-    // Subtrair 3 do número
-    DSUBI R1, R1, 3
-    J loop
+//eh_negativo:
+    // Inicializa o registrador R2 com 3
+DADDI R2, R0, 3
+  
+//  while_negativo_loop:
+    // Verifica se R1 < 0
+BGEZ R1, 3                // se for > 0 vai para exit_while_negativo, ou seja, sai do while
 
-// O número é divisível por três (positivo)
-divisivel_por_tres:
-    LD R1, resultado_positivo
-    J fim
+    // R1 += 3
+DADD R1, R1, R2
 
-// O número é divisível por três (negativo)
-divisivel_por_tres_negativo:
-    LD R1, resultado_negativo
-    J fim
+    // Salta para o início do loop
+J -2
 
-// Fim do programa
-fim:
+//  exit_while_negativo:
+    // Verifica se R1 é igual a zero
+BEQ R1, R0, 3
 
+    // Caso R1 não seja igual a zero, ou seja ele virar +, retorna -1
+DADDI R1, R0, -1
+J 12
 
+//  is_zero_neg:
+    // Caso R1 seja igual a zero, retorna 1
+DADDI R1, R0, 1
+J 10
+
+//eh_positivo:
+    // Inicializa o registrador R2 para 3
+DADDI R2, R0, 3
+
+//  while_positivo_loop:
+    // Verifica se R1 > 0
+BLTZ R1, 3                // se for < 0 vai para exit_while_negativo, ou seja, sai do while
+
+    // R1 -= 3
+DSUB R1, R1, R2
+
+    // Salta para o início do loop
+J -2
+
+//  exit_while_positivo:
+    // Verifica se R1 é igual a zero
+BEQ R1, R0, 3
+
+    // Caso R1 não seja igual a zero, retorna -1
+DADDI R1, R0, -1
+J 3
+
+//  is_zero_pos:
+    // Caso R1 seja igual a zero, retorna 1
+DADDI R1, R0, 1
+J 1
+// FIM

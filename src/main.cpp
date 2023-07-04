@@ -708,6 +708,95 @@ int sc_main(int argc, char *argv[])
             }
     });
 
+    bench_sub->append("Par ou Impar",[&](menu::item_proxy &ip){
+        string path = "in/benchmarks/par_Impar/par_Impar.txt";
+        bench_name = "par_Impar";
+        inFile.open(path);
+        if(!add_instructions(inFile,instruction_queue,instruct))
+            show_message("Arquivo inválido","Não foi possível abrir o arquivo");
+        else
+            fila = true;
+        
+    });
+
+    bench_sub->append("Primo",[&](menu::item_proxy &ip){
+        string path = "in/benchmarks/primo/primo.txt";
+        bench_name = "primo";
+        inFile.open(path);
+        if(!add_instructions(inFile,instruction_queue,instruct))
+            show_message("Arquivo inválido","Não foi possível abrir o arquivo");
+        else
+            fila = true;
+        
+        path = "in/benchmarks/primo/regs.txt";
+        inFile.open(path);
+            if(!inFile.is_open())
+                show_message("Arquivo inválido","Não foi possível abrir o arquivo!");
+            else
+            {
+                auto reg_gui = reg.at(0);
+                int value,i = 0;
+                while(inFile >> value && i < 32)
+                {
+                    reg_gui.at(i).text(1,std::to_string(value));
+                    i++;
+                }
+                for(; i < 32 ; i++)
+                    reg_gui.at(i).text(1,"0");
+                inFile.close();
+            }
+    });
+
+    bench_sub->append("Palindromo",[&](menu::item_proxy &ip){
+        string path = "in/benchmarks/palindromo/primo.txt";
+        bench_name = "palidromo";
+        inFile.open(path);
+        if(!add_instructions(inFile,instruction_queue,instruct))
+            show_message("Arquivo inválido","Não foi possível abrir o arquivo");
+        else
+            fila = true;
+
+        path = "in/benchmarks/palindromo/memory.txt";
+        inFile.open(path);
+            if(!inFile.is_open())
+                show_message("Arquivo inválido","Não foi possível abrir o arquivo!");
+            else
+            {
+                int i = 0;
+                int value;
+                while(inFile >> value && i < 500)
+                {
+                    memory.Set(i,std::to_string(value));
+                    i++;
+                }
+                for(; i < 500 ; i++)
+                {
+                    memory.Set(i,"0");
+                }
+                inFile.close();
+            }
+
+        path = "in/benchmarks/palindromo/regs.txt";
+        inFile.open(path);
+            if(!inFile.is_open())
+                show_message("Arquivo inválido","Não foi possível abrir o arquivo!");
+            else
+            {
+                auto reg_gui = reg.at(0);
+                int value,i = 0;
+                while(inFile >> value && i < 32)
+                {
+                    reg_gui.at(i).text(1,std::to_string(value));
+                    i++;
+                }
+                for(; i < 32 ; i++)
+                    reg_gui.at(i).text(1,"0");
+                inFile.close();
+            }
+    });
+
+    
+
     vector<string> columns = {"#","Name","Busy","Op","Vj","Vk","Qj","Qk","A"}; 
     for(unsigned int i = 0 ; i < columns.size() ; i++)
     {
