@@ -1,17 +1,7 @@
-// Recebe os dois números nas posições de memória a0 e a1
-DADDI R2, R0, 36    // Carrega o primeiro número em R2
-DADDI R3, R0, 3    // Carrega o segundo número em R3
-
-    // Compara os números e armazena o resultado em R1
-DSUB R4, R2, R3  // Subtrai R3 de R2 (R4 = R2 - R3)
-BNEZ R4, 3  // Desvia para not_equal se R4 != 0
-
-    // Se os números são iguais
-DADDI R1, R0, 1  // R1 = 1
-J 2              // Desvia para o fim
-
-//not_equal:
-    // Se os números são diferentes
-DADDI R1, R1, -1  // R1 = -1
-
-//fim:
+DADDI R2,R0,36
+DADDI R3,R0,3
+DSUB R4,R2,R3
+BNEZ R4,3
+DADDI R1,R0,1
+J 2
+DADDI R1,R1,-1

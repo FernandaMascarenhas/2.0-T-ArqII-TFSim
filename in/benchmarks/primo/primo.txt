@@ -1,27 +1,12 @@
-LD R1, 0(R0)        // Carrega o número na memória para o registrador R1
-DADDI R2, R0, 2     // Carrega o valor 2 para o registrador R2 (começar com divisor 2)
-DADDI R3, R0, 0     // Inicializa o contador de divisores encontrados (começa com 0)
-DADDI R4, R0, 1     // Inicializa o contador de tentativas (começa com 1)
-    
-//LOOP:
-    DSUB R5, R1, R2     // Subtrai o divisor atual do número
-    BNE R5, R0, 2  // Se a subtração resultar em algo diferente de 0, salta para NOT_DIVISIBLE
-    DADDI R3, R3, 1     // Se for divisível, incrementa o contador de divisores encontrados
-    
-//NOT_DIVISIBLE:
-    DSUBI R4, R4, -1    // Incrementa o contador de tentativas
-    SLT R5, R4, R1      // Compara o contador de tentativas com o número
-    BNE R5, R0, -5    // Se o contador for menor que o número, continua o loop
-    
-    SGT R5, R3, R0      // Verifica se o contador de divisores encontrados é maior que 0
-    BEQ R5, R0, 3  // Se não há divisores encontrados, salta para NOT_PRIME
-    
-    DADDI R5, R0, 0     // Caso contrário, coloca o valor 0 (não primo) no registrador R5
-    
-    J 2              // Pula para o final
-    
-//NOT_PRIME:
-    DADDI R5, R0, 1     // Se não entrou no loop, coloca o valor 1 (primo) no registrador R5
-    
-//END:
-    SD R5, 1(R0)        // Armazena o resultado no endereço de memória 1
+DADDI R1,R0,4
+DADDI R2,R0,2
+DADD R3,R0,R1
+DADD R4,R0,R0
+DSUB R3,R3,R2
+BEQ R3,R0,6
+DADDI R2,R2,1
+DADDI R5,R2,1
+DSUB R6,R5,R3
+BGTZ R6,
+BNE R2,R3,-6
+DADDI R8,R0,1

@@ -1,30 +1,21 @@
-  LD R1, 0(R0)        //Carrega o número na memória para o registrador R1
-    
-    DADDI R2, R0, 10000 //Define o divisor para separar o dígito mais significativo
-    DADDI R3, R0, 10    //Define o divisor para separar o dígito menos significativo
-    DADDI R4, R0, 1     //Inicializa o fator para multiplicação
-    
-    DADD R5, R0, R1     //Copia o número original para o registrador R5
-    
-//REVERSE_LOOP:
-    DDIV R6, R5, R2     //Separa o dígito mais significativo do número
-    DSUB R5, R5, R6     //Remove o dígito mais significativo do número
-    DMUL R4, R4, R3     //Multiplica o resultado atual por 10
-    DADD R1, R1, R6     //Adiciona o dígito mais significativo ao novo número invertido
-    
-    BGTZ R5, -4  //Se o número original for maior que 0, repete o loop
-    
-    DADD R6, R0, R1     //Copia o número invertido para o registrador R6
-    DSUB R7, R6, R1     //Subtrai o número invertido do número original
-    
-    BEQ R7, R0, 3  //Se o resultado for zero, salta para o rótulo PALINDROMO
-    
-//NAO_PALINDROMO:
-    DADDI R8, R0, 0     //Coloca o valor 0 (não palíndromo) no registrador R8
-    J 2               //Pula para o final
-    
-//PALINDROMO:
-    DADDI R8, R0, 1     //Coloca o valor 1 (palíndromo) no registrador R8
-    
-//FIM:
-    SD R8, 1(R0)        Armazena o resultado no endereço de memória 1
+DADDI R1,R0,12551
+DADDI R2,R1,10000
+DADDI R3,R1,10
+DDIV R4,R1,R2
+DADD R1,R1,R4
+DDIV R5,R1,R3
+DADD R1,R1,R5
+DADDI R8,R8,1
+DSUB R6,R3,R8
+DMUL R5,R5,R6
+DDIV R6,R1,R3
+DADD R1,R1,R6
+DDIV R7,R1,R3
+DADD R1,R1,R7
+BEQ R4,R7,3
+DADDI R8,R0,0
+J 5
+BEQ R5,R6,3
+DADDI R8,R0,0
+J 2
+DADDI R8,R0,1
